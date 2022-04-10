@@ -60,18 +60,24 @@ class CurrentWeatherFragment : Fragment() {
                     // Error
                 }
                 LiveDataWrapper.ResponseStatus.SUCCESS -> {
-                    tv_info.text = resources.getString(
-                        R.string.text_lat_long,
-                        result.response?.get(0)?.lat,
-                        result.response?.get(0)?.lon
-                    )
-                    tv_info.visibility = View.VISIBLE
+                    result.response?.let {
+                        if (it.isNotEmpty()) {
+                            tv_info.text =
+                                resources.getString(R.string.text_lat_long, it[0].lat, it[0].lon)
+                            tv_city_name.text = it[0].name
+                            tv_city_name.visibility = View.VISIBLE
+                            tv_info.visibility = View.VISIBLE
+                        } else {
+                            tv_city_name.visibility = View.GONE
+                            tv_info.visibility = View.GONE
+                        }
+                    }
                 }
             }
         }
 
         btn_search.setOnClickListener {
-            currentWeatherViewModel.getGeolocation("Tokyo")
+            currentWeatherViewModel.getGeolocation(et_city_name.text.toString())
         }
     }
 

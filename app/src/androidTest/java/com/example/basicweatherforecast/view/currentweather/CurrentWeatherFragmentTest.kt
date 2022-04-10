@@ -4,13 +4,15 @@ import android.os.SystemClock
 import androidx.fragment.app.testing.FragmentScenario
 import androidx.fragment.app.testing.launchFragmentInContainer
 import androidx.lifecycle.Lifecycle
+import androidx.test.espresso.Espresso
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.action.ViewActions.click
+import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.example.basicweatherforecast.R
+import org.hamcrest.Matchers.not
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -28,6 +30,11 @@ class CurrentWeatherFragmentTest {
 
     @Test
     fun show_blank_text() {
+        onView(withId(R.id.tv_info)).check(matches(not(isDisplayed())))
+        onView(withId(R.id.tv_city_name)).check(matches(not(isDisplayed())))
+        onView(withId(R.id.et_city_name)).perform(clearText(), typeText("bangkok"))
+
+        Espresso.closeSoftKeyboard()
         onView(withId(R.id.btn_search))
             .perform(click())
             .check(matches(isDisplayed()))
@@ -35,5 +42,6 @@ class CurrentWeatherFragmentTest {
         SystemClock.sleep(1000)
 
         onView(withId(R.id.tv_info)).check(matches(isDisplayed()))
+        onView(withId(R.id.tv_city_name)).check(matches(isDisplayed()))
     }
 }
