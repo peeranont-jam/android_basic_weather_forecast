@@ -4,7 +4,6 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.example.basicweatherforecast.data.LiveDataWrapper
 import com.example.basicweatherforecast.data.Result
 import com.example.basicweatherforecast.data.model.Geolocation
-import com.example.basicweatherforecast.data.model.GeolocationInfo
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.coVerify
@@ -14,9 +13,7 @@ import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import java.lang.NullPointerException
 import kotlin.test.assertEquals
-import kotlin.test.assertNotNull
 import kotlin.test.assertNull
 
 @ExperimentalCoroutinesApi
@@ -44,10 +41,8 @@ class CurrentWeatherViewModelTest {
         val input = "Bangkok"
         coEvery { mUseCase.getGeolocation(any()) } coAnswers {
             Result.success(
-                Geolocation(
-                    listOf(
-                        GeolocationInfo(input, 13.7544238, 100.4930399, "TH", input)
-                    )
+                listOf(
+                    Geolocation(input, 13.7544238, 100.4930399, "TH")
                 )
             )
         }
@@ -59,10 +54,8 @@ class CurrentWeatherViewModelTest {
             mViewModel.weatherInfoLiveData.value?.responseStatus
         )
         assertEquals(
-            Geolocation(
-                listOf(
-                    GeolocationInfo(input, 13.7544238, 100.4930399, "TH", input)
-                )
+            listOf(
+                Geolocation(input, 13.7544238, 100.4930399, "TH")
             ),
             mViewModel.weatherInfoLiveData.value?.response
         )

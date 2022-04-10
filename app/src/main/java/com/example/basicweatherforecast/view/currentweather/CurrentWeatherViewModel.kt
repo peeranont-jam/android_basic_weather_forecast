@@ -11,25 +11,29 @@ class CurrentWeatherViewModel(
     ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : ViewModel() {
 
-    var weatherInfoLiveData = MutableLiveData<LiveDataWrapper<Geolocation>>()
+    var weatherInfoLiveData = MutableLiveData<LiveDataWrapper<List<Geolocation>>>()
 
     private val job = SupervisorJob()
     private val mioScope = CoroutineScope(job + ioDispatcher)
 
     fun getGeolocation(cityName: String) {
         mioScope.launch {
-            weatherInfoLiveData.value = LiveDataWrapper.loading()
+            weatherInfoLiveData.postValue(LiveDataWrapper.loading())
             try {
                 val result = useCase.getGeolocation(cityName)
-                if(result.isSuccess) {
+                if (result.isSuccess) {
                     result.data?.let {
-                        weatherInfoLiveData.value = LiveDataWrapper.success(it)
+                        weatherInfoLiveData.postValue(LiveDataWrapper.success(it))
                     }
                 } else {
-                    weatherInfoLiveData.value = LiveDataWrapper.error(errMsg = result.message)
+                    weatherInfoLiveData.postValue(LiveDataWrapper.error(errMsg = result.message))
                 }
             } catch (e: Exception) {
-                weatherInfoLiveData.value = LiveDataWrapper.error(e.message ?: "Unexpected Error")
+                weatherInfoLiveData.postValue(
+                    LiveDataWrapper.error(
+                        e.message ?: "Unexpected Error"
+                    )
+                )
             }
         }
     }

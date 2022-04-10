@@ -2,10 +2,12 @@ package com.example.basicweatherforecast.view.currentweather
 
 import com.example.basicweatherforecast.data.Result
 import com.example.basicweatherforecast.data.model.Geolocation
-import com.example.basicweatherforecast.data.model.GeolocationInfo
 import com.example.basicweatherforecast.repository.WeatherRepository
-import io.mockk.*
+import io.mockk.MockKAnnotations
+import io.mockk.coEvery
+import io.mockk.coVerify
 import io.mockk.impl.annotations.RelaxedMockK
+import io.mockk.slot
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.*
 import org.junit.Before
@@ -13,7 +15,7 @@ import org.junit.Test
 
 class CurrentWeatherUseCaseTest {
 
-    lateinit var mCurrentWeatherUseCase: CurrentWeatherUseCase
+    private lateinit var mCurrentWeatherUseCase: CurrentWeatherUseCase
 
     @RelaxedMockK
     lateinit var mWeatherRepository: WeatherRepository
@@ -31,15 +33,13 @@ class CurrentWeatherUseCaseTest {
         val slot = slot<String>()
         coEvery { mWeatherRepository.getGeolocation(capture(slot)) } coAnswers {
             Result.success(
-                Geolocation(
-                    listOf(
-                        GeolocationInfo(input, 13.7544238, 100.4930399, "TH", input)
-                    )
+                listOf(
+                    Geolocation(input, 13.7544238, 100.4930399, "TH")
                 )
             )
         }
 
-        val result: Result<Geolocation>
+        val result: Result<List<Geolocation>>
         runBlocking {
             result = mCurrentWeatherUseCase.getGeolocation(input)
         }
@@ -48,10 +48,8 @@ class CurrentWeatherUseCaseTest {
         assertEquals(input, slot.captured)
         assertTrue(result.isSuccess)
         assertEquals(
-            Geolocation(
-                listOf(
-                    GeolocationInfo(input, 13.7544238, 100.4930399, "TH", input)
-                )
+            listOf(
+                Geolocation(input, 13.7544238, 100.4930399, "TH")
             ),
             result.data
         )
@@ -67,7 +65,7 @@ class CurrentWeatherUseCaseTest {
             Result.error(errorMsg)
         }
 
-        val result: Result<Geolocation>
+        val result: Result<List<Geolocation>>
         runBlocking {
             result = mCurrentWeatherUseCase.getGeolocation(input)
         }

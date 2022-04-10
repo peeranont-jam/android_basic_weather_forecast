@@ -4,12 +4,16 @@ import com.example.basicweatherforecast.data.Result
 import com.example.basicweatherforecast.data.model.Geolocation
 import com.example.basicweatherforecast.data.remote.service.OpenWeatherMapService
 
-class WeatherRepositoryImpl(private val openWeatherMapService: OpenWeatherMapService): WeatherRepository {
+class WeatherRepositoryImpl(
+    private val openWeatherMapService: OpenWeatherMapService
+) : WeatherRepository {
 
-    override suspend fun getGeolocation(city: String): Result<Geolocation> {
+    override suspend fun getGeolocation(city: String): Result<List<Geolocation>> {
         return try {
             val response = openWeatherMapService.getGeolocation(city)
-            val result = response.mapToGeolocation()
+            val result = response.map {
+                it.mapToGeolocation()
+            }
             Result.success(result)
         } catch (e: Throwable) {
             e.printStackTrace()

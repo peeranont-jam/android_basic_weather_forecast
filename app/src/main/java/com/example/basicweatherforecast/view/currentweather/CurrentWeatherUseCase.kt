@@ -6,7 +6,7 @@ import com.example.basicweatherforecast.repository.WeatherRepository
 
 class CurrentWeatherUseCase(private val weatherRepository: WeatherRepository) {
 
-    suspend fun getGeolocation(city: String): Result<Geolocation> {
+    suspend fun getGeolocation(city: String): Result<List<Geolocation>> {
         return weatherRepository.getGeolocation(city)
     }
 }

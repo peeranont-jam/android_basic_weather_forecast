@@ -4,5 +4,5 @@ import com.example.basicweatherforecast.data.Result
 import com.example.basicweatherforecast.data.model.Geolocation
 
 interface WeatherRepository {
-    suspend fun getGeolocation(city: String): Result<Geolocation>
+    suspend fun getGeolocation(city: String): Result<List<Geolocation>>
 }

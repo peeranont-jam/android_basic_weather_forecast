@@ -12,6 +12,6 @@ interface OpenWeatherMapService {
         @Query("q") city: String,
         @Query("limit") limit: Int = 1,
         @Query("appid") apiKey: String = API_KEY,
-    ): GeolocationResponse
+    ): List<GeolocationResponse>
 
 }

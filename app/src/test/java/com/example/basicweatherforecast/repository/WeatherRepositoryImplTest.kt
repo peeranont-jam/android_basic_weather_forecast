@@ -2,16 +2,16 @@ package com.example.basicweatherforecast.repository
 
 import com.example.basicweatherforecast.data.Result
 import com.example.basicweatherforecast.data.model.Geolocation
-import com.example.basicweatherforecast.data.model.GeolocationInfo
-import com.example.basicweatherforecast.data.remote.model.GeolocationModel
 import com.example.basicweatherforecast.data.remote.model.GeolocationResponse
 import com.example.basicweatherforecast.data.remote.service.OpenWeatherMapService
-import io.mockk.*
+import io.mockk.MockKAnnotations
+import io.mockk.coEvery
+import io.mockk.coVerify
 import io.mockk.impl.annotations.RelaxedMockK
+import io.mockk.slot
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Test
-import org.koin.core.context.startKoin
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import kotlin.test.assertNull
@@ -36,14 +36,12 @@ class WeatherRepositoryImplTest {
         val inputCity = "Bangkok"
         val slot = slot<String>()
         coEvery { mOpenWeatherMapService.getGeolocation(capture(slot)) }.coAnswers {
-            GeolocationResponse(
-                listOf(
-                    GeolocationModel(inputCity, 13.7544238, 100.4930399, "TH", inputCity)
-                )
+            listOf(
+                GeolocationResponse(inputCity, 13.7544238, 100.4930399, "TH")
             )
         }
 
-        var result: Result<Geolocation>
+        var result: Result<List<Geolocation>>
         runBlocking {
             result = mWeatherRepository.getGeolocation(inputCity)
         }
@@ -52,10 +50,8 @@ class WeatherRepositoryImplTest {
         assertEquals(inputCity, slot.captured)
         assertTrue(result.isSuccess)
         assertEquals(
-            Geolocation(
-                listOf(
-                    GeolocationInfo(inputCity, 13.7544238, 100.4930399, "TH", inputCity)
-                )
+            listOf(
+                Geolocation(inputCity, 13.7544238, 100.4930399, "TH")
             ), result.data
         )
     }
@@ -65,10 +61,10 @@ class WeatherRepositoryImplTest {
         val inputCity = "z"
         val slot = slot<String>()
         coEvery { mOpenWeatherMapService.getGeolocation(capture(slot)) }.coAnswers {
-            GeolocationResponse(listOf())
+            listOf()
         }
 
-        var result: Result<Geolocation>
+        var result: Result<List<Geolocation>>
         runBlocking {
             result = mWeatherRepository.getGeolocation(inputCity)
         }
@@ -76,7 +72,7 @@ class WeatherRepositoryImplTest {
         coVerify(exactly = 1) { mOpenWeatherMapService.getGeolocation(any()) }
         assertEquals(inputCity, slot.captured)
         assertTrue(result.isSuccess)
-        assertEquals(Geolocation(listOf()), result.data)
+        assertEquals(listOf(), result.data)
     }
 
     @Test
@@ -88,7 +84,7 @@ class WeatherRepositoryImplTest {
             NullPointerException(errorMessage)
         )
 
-        var result: Result<Geolocation>
+        var result: Result<List<Geolocation>>
         runBlocking {
             result = mWeatherRepository.getGeolocation(inputCity)
         }
