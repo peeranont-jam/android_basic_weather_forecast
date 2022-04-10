@@ -1,11 +1,16 @@
 package com.example.basicweatherforecast.view.currentweather
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.example.basicweatherforecast.R
+import com.example.basicweatherforecast.data.LiveDataWrapper
+import kotlinx.android.synthetic.main.fragment_current_weather.*
+import kotlinx.coroutines.Dispatchers
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -22,6 +27,12 @@ class CurrentWeatherFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
+    private val currentWeatherViewModel: CurrentWeatherViewModel by viewModel {
+        parametersOf(
+            Dispatchers.IO
+        )
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -34,8 +45,34 @@ class CurrentWeatherFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_current_weather, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        currentWeatherViewModel.weatherInfoLiveData.observe(viewLifecycleOwner) { result ->
+            when (result.responseStatus) {
+                LiveDataWrapper.ResponseStatus.LOADING -> {
+                    // Loading data
+                }
+                LiveDataWrapper.ResponseStatus.ERROR -> {
+                    // Error
+                }
+                LiveDataWrapper.ResponseStatus.SUCCESS -> {
+                    tv_info.text = resources.getString(
+                        R.string.text_lat_long,
+                        result.response?.get(0)?.lat,
+                        result.response?.get(0)?.lon
+                    )
+                    tv_info.visibility = View.VISIBLE
+                }
+            }
+        }
+
+        btn_search.setOnClickListener {
+            currentWeatherViewModel.getGeolocation("Tokyo")
+        }
     }
 
     companion object {

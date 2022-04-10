@@ -2,4 +2,6 @@
     <string name="app_name">Basic Weather Forecast</string>
 
     <string name="btn_search">Search</string>
+    <string name="text_city_name">City Name</string>
+    <string name="text_lat_long">Lat: %1$d, Long: %2$d</string>
 </resources>
