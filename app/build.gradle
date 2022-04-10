@@ -30,6 +30,9 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    testOptions {
+        animationsDisabled = true
+    }
 }
 
 dependencies {
@@ -56,6 +59,7 @@ dependencies {
     implementation "androidx.navigation:navigation-fragment-ktx:${rootProject.ext.nav_version}"
     implementation "androidx.navigation:navigation-ui-ktx:${rootProject.ext.nav_version}"
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    debugImplementation  'androidx.fragment:fragment-testing:1.4.1'
 
     // --- Unit Testing Tools
     testImplementation 'junit:junit:4.13.2'
@@ -69,5 +73,7 @@ dependencies {
     // --- Instrument Testing Tools
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    androidTestImplementation 'androidx.test:runner:1.4.0'
+    androidTestImplementation 'androidx.test:rules:1.4.0'
     androidTestImplementation 'com.squareup.okhttp3:mockwebserver:4.9.3' //Mockwebserver
 }
