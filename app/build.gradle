@@ -50,12 +50,14 @@ dependencies {
     implementation 'com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2'
 
     // Coroutines
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.0'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.1'
 
     // Unit Testing Tools
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'io.mockk:mockk:1.12.3' //Mockk
     testImplementation "io.insert-koin:koin-test:${rootProject.ext.koin_version}"  // Koin testing tools
+    testImplementation "androidx.arch.core:core-testing:2.1.0"
+    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.1'
 
     // Instrument Testing Tools
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
