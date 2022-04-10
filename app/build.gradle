@@ -52,14 +52,21 @@ dependencies {
     // Coroutines
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.1'
 
-    // Unit Testing Tools
+    // Navigation Component
+    implementation "androidx.navigation:navigation-fragment-ktx:${rootProject.ext.nav_version}"
+    implementation "androidx.navigation:navigation-ui-ktx:${rootProject.ext.nav_version}"
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+
+    // --- Unit Testing Tools
     testImplementation 'junit:junit:4.13.2'
-    testImplementation 'io.mockk:mockk:1.12.3' //Mockk
-    testImplementation "io.insert-koin:koin-test:${rootProject.ext.koin_version}"  // Koin testing tools
+    //Mockk
+    testImplementation 'io.mockk:mockk:1.12.3'
+    // Koin testing tools
+    testImplementation "io.insert-koin:koin-test:${rootProject.ext.koin_version}"
     testImplementation "androidx.arch.core:core-testing:2.1.0"
     testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.1'
 
-    // Instrument Testing Tools
+    // --- Instrument Testing Tools
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
     androidTestImplementation 'com.squareup.okhttp3:mockwebserver:4.9.3' //Mockwebserver
