@@ -1,8 +1,10 @@
 package com.example.basicweatherforecast.data.model
 
 import android.os.Parcelable
+import androidx.annotation.Keep
 import kotlinx.android.parcel.Parcelize
 
+@Keep
 @Parcelize
 data class WeatherInfo(
     var lat: Double,
@@ -13,12 +15,14 @@ data class WeatherInfo(
     var unit: TemperatureUnit? = null
 ) : Parcelable
 
+@Keep
 @Parcelize
 data class Current(
     var temp: Double,
     var humidity: Double
 ) : Parcelable
 
+@Keep
 @Parcelize
 data class Hourly(
     var dateTime: Long,
@@ -27,6 +31,7 @@ data class Hourly(
     var weather: List<Weather>
 ) : Parcelable
 
+@Keep
 @Parcelize
 data class Weather(
     var id: Int,

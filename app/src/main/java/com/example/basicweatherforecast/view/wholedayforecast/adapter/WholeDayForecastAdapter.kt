@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.basicweatherforecast.R
 import com.example.basicweatherforecast.data.model.Hourly
 import com.example.basicweatherforecast.data.model.TemperatureUnit
@@ -44,6 +45,12 @@ class WholeDayForecastAdapter(
         holder.textHumidity.text =
             holder.itemView.context.getString(R.string.text_humidity, data.humidity)
         holder.textDatetime.text = data.dateTime.toFormatDate()
+
+        Glide.with(holder.itemView.context)
+            .load("https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png")
+            .centerCrop()
+            .skipMemoryCache(true)
+            .into(holder.imgWeather)
     }
 
     override fun getItemCount() = items.size
