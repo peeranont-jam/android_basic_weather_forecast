@@ -21,6 +21,7 @@ data class Current(
 
 @Parcelize
 data class Hourly(
+    var dateTime: Long,
     var temp: Double,
     var humidity: Double,
     var weather: List<Weather>

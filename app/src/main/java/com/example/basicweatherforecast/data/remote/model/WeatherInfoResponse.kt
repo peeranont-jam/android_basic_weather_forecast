@@ -26,6 +26,7 @@ data class WeatherInfoResponse(
             ),
             hourly = this.hourly.map {
                 Hourly(
+                    dateTime = it.dateTime,
                     temp = it.temp,
                     humidity = it.humidity,
                     weather = it.weather.map { weather ->
@@ -50,6 +51,8 @@ data class CurrentModel(
 )
 
 data class HourlyModel(
+    @SerializedName("dt")
+    var dateTime: Long,
     @SerializedName("temp")
     var temp: Double,
     @SerializedName("humidity")

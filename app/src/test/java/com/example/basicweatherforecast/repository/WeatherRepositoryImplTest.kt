@@ -117,7 +117,7 @@ class WeatherRepositoryImplTest {
                 current = CurrentModel(32.76, 56.0),
                 hourly = listOf(
                     HourlyModel(
-                        28.5, 50.0,
+                        1649703600, 28.5, 50.0,
                         listOf(
                             WeatherModel(
                                 500,
@@ -148,7 +148,7 @@ class WeatherRepositoryImplTest {
                 current = Current(32.76, 56.0),
                 hourly = listOf(
                     Hourly(
-                        28.5, 50.0,
+                        1649703600, 28.5, 50.0,
                         listOf(
                             Weather(
                                 500,
