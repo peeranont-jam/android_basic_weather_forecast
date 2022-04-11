@@ -5,6 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.example.basicweatherforecast.R
 import com.example.basicweatherforecast.data.LiveDataWrapper
+import com.example.basicweatherforecast.data.model.Hourly
 import com.example.basicweatherforecast.data.model.TemperatureUnit
 import com.example.basicweatherforecast.data.model.WeatherInfo
 import kotlinx.coroutines.*
@@ -17,14 +18,25 @@ class CurrentWeatherViewModel(
 
     var weatherInfoLiveData = MutableLiveData<LiveDataWrapper<WeatherInfo>>()
 
+    private var hourlyInfo: List<Hourly> = listOf()
+    private var temperatureUnit = TemperatureUnit.Celsius
+
     private val job = SupervisorJob()
     private val mioScope = CoroutineScope(job + ioDispatcher)
+
+    fun getHourlyInfo(): List<Hourly> {
+        return hourlyInfo
+    }
+
+    fun getTempUnit(): TemperatureUnit {
+        return temperatureUnit
+    }
 
     fun getWeatherInfo(cityName: String, unit: TemperatureUnit) {
 
         if (cityName.isBlank()) {
             weatherInfoLiveData.value =
-                LiveDataWrapper.error(getApplication<Application>().getString(R.string.tv_err_msg_blank_input))
+                LiveDataWrapper.error(getApplication<Application>().getString(R.string.text_err_msg_blank_input))
             return
         }
 
@@ -43,6 +55,9 @@ class CurrentWeatherViewModel(
                         result.data.cityName = geolocation.data[0].name
                         result.data.unit = unit
                         weatherInfoLiveData.postValue(LiveDataWrapper.success(result.data))
+
+                        hourlyInfo = result.data.hourly
+                        temperatureUnit = unit
                     } else {
                         weatherInfoLiveData.postValue(
                             LiveDataWrapper.error(

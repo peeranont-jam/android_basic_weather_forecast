@@ -197,7 +197,7 @@ class CurrentWeatherViewModelTest {
         val errMsg = "Please specify city name!!!"
 
         every {
-            application.getString(R.string.tv_err_msg_blank_input)
+            application.getString(R.string.text_err_msg_blank_input)
         } returns errMsg
 
         mViewModel.getWeatherInfo(inputCity, inputUnit)

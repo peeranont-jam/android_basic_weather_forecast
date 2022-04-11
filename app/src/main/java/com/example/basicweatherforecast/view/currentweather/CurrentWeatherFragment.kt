@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import com.example.basicweatherforecast.R
 import com.example.basicweatherforecast.data.LiveDataWrapper
 import com.example.basicweatherforecast.data.model.TemperatureUnit
@@ -19,9 +20,7 @@ import org.koin.core.parameter.parametersOf
 class CurrentWeatherFragment : Fragment() {
 
     private val currentWeatherViewModel: CurrentWeatherViewModel by viewModel {
-        parametersOf(
-            Dispatchers.IO
-        )
+        parametersOf(Dispatchers.IO)
     }
 
     override fun onCreateView(
@@ -47,6 +46,15 @@ class CurrentWeatherFragment : Fragment() {
             currentWeatherViewModel.getWeatherInfo(
                 et_city_name.text.toString(),
                 getSelectedTempUnit()
+            )
+        }
+
+        tv_navigate_to_whole_day_forecast.setOnClickListener {
+            findNavController().navigate(
+                CurrentWeatherFragmentDirections.actionCurrentWeatherFragmentToWholeDayForecastFragment(
+                    currentWeatherViewModel.getHourlyInfo().toTypedArray(),
+                    currentWeatherViewModel.getTempUnit()
+                )
             )
         }
     }

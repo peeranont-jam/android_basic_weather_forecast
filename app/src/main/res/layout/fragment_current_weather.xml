@@ -55,19 +55,35 @@
         android:layout_height="wrap_content"
         android:text="@string/text_humidity"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/et_city_name"
+        app:layout_constraintBottom_toTopOf="@+id/tv_navigate_to_whole_day_forecast"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="@+id/tv_temp"
         app:layout_constraintTop_toBottomOf="@+id/tv_temp" />
 
+    <TextView
+        android:id="@+id/tv_navigate_to_whole_day_forecast"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="?attr/selectableItemBackground"
+        android:text="@string/text_navigate_to_whole_day_forecast"
+        android:textColor="@android:color/holo_blue_dark"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/et_city_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="@+id/tv_temp"
+        app:layout_constraintTop_toBottomOf="@+id/tv_humidity" />
+
     <androidx.constraintlayout.widget.Group
         android:id="@+id/group_weather_info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone"
-        app:constraint_referenced_ids="tv_city_name, tv_temp, tv_temp_unit, tv_humidity" />
+        app:constraint_referenced_ids="tv_city_name, tv_temp, tv_temp_unit, tv_humidity, tv_navigate_to_whole_day_forecast" />
 
     <EditText
         android:id="@+id/et_city_name"

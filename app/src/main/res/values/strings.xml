@@ -4,12 +4,17 @@
     <string name="btn_search">Search</string>
     <string name="text_city_name">City Name</string>
     <string name="text_temp">%1$.1f</string>
-    <string name="text_humidity">Humidity: %1$.1f %%</string>
+    <string name="text_temp_with_unit">%1$.1f %2$s</string>
+    <string name="text_humidity">Humidity: %1$.1f%%</string>
     <string name="et_hint">Search city name here…</string>
+
     <string name="text_symbol_celsius">℃</string>
     <string name="text_symbol_fahrenheit">℉</string>
     <string name="text_celsius">Celsius</string>
     <string name="text_fahrenheit">Fahrenheit</string>
 
-    <string name="tv_err_msg_blank_input">Please specify city name!!!</string>
+    <string name="text_err_msg_blank_input">Please specify city name!!!</string>
+    <string name="text_navigate_to_whole_day_forecast"><u>View Whole-Day Forecast</u></string>
+    <string name="text_sample_date">2022–01–01 12:00</string>
+    <string name="text_img_weather_content_description">Weather Image</string>
 </resources>

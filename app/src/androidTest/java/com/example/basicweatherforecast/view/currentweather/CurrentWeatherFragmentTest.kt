@@ -39,6 +39,7 @@ class CurrentWeatherFragmentTest {
         onView(withId(R.id.tv_temp)).check(matches(not(isDisplayed())))
         onView(withId(R.id.tv_temp_unit)).check(matches(not(isDisplayed())))
         onView(withId(R.id.tv_humidity)).check(matches(not(isDisplayed())))
+        onView(withId(R.id.tv_navigate_to_whole_day_forecast)).check(matches(not(isDisplayed())))
 
         onView(withId(R.id.et_city_name)).perform(clearText(), typeText("san fran"))
         Espresso.closeSoftKeyboard()
@@ -58,6 +59,7 @@ class CurrentWeatherFragmentTest {
             .check(matches(isDisplayed()))
             .check(matches(withText(context.getString(R.string.text_symbol_celsius))))
         onView(withId(R.id.tv_humidity)).check(matches(isDisplayed()))
+        onView(withId(R.id.tv_navigate_to_whole_day_forecast)).check(matches(isDisplayed()))
     }
 
     @Test
@@ -66,6 +68,7 @@ class CurrentWeatherFragmentTest {
         onView(withId(R.id.tv_temp)).check(matches(not(isDisplayed())))
         onView(withId(R.id.tv_temp_unit)).check(matches(not(isDisplayed())))
         onView(withId(R.id.tv_humidity)).check(matches(not(isDisplayed())))
+        onView(withId(R.id.tv_navigate_to_whole_day_forecast)).check(matches(not(isDisplayed())))
 
         onView(withId(R.id.et_city_name)).perform(clearText(), typeText("bangkok"))
         Espresso.closeSoftKeyboard()
@@ -86,6 +89,7 @@ class CurrentWeatherFragmentTest {
             .check(matches(isDisplayed()))
             .check(matches(withText(context.getString(R.string.text_symbol_fahrenheit))))
         onView(withId(R.id.tv_humidity)).check(matches(isDisplayed()))
+        onView(withId(R.id.tv_navigate_to_whole_day_forecast)).check(matches(isDisplayed()))
     }
 
 }

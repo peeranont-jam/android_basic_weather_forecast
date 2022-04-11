@@ -9,5 +9,28 @@
         android:id="@+id/currentWeatherFragment"
         android:name="com.example.basicweatherforecast.view.currentweather.CurrentWeatherFragment"
         android:label="fragment_current_weather"
-        tools:layout="@layout/fragment_current_weather" />
+        tools:layout="@layout/fragment_current_weather">
+        <action
+            android:id="@+id/action_currentWeatherFragment_to_wholeDayForecastFragment"
+            app:destination="@id/wholeDayForecastFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/wholeDayForecastFragment"
+        android:name="com.example.basicweatherforecast.view.wholedayforecast.WholeDayForecastFragment"
+        android:label="fragment_whole_day_forecast"
+        tools:layout="@layout/fragment_whole_day_forecast">
+
+        <argument
+            android:name="hourlyInfo"
+            app:argType="com.example.basicweatherforecast.data.model.Hourly[]" />
+
+        <argument
+            android:name="temperatureUnit"
+            app:argType="com.example.basicweatherforecast.data.model.TemperatureUnit" />
+    </fragment>
 </navigation>
