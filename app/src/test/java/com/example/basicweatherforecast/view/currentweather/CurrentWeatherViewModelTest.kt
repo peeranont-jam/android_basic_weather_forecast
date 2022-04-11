@@ -44,7 +44,7 @@ class CurrentWeatherViewModelTest {
         val inputCity = "Bangko"
         val mockLat = 13.7544238
         val mockLong = 100.4930399
-        val inputUnit = "metric"
+        val inputUnit = TemperatureUnit.Celsius
         val slotInputCity = slot<String>()
         val slotUnit = slot<String>()
         val slotCityName = slot<String>()
@@ -95,7 +95,7 @@ class CurrentWeatherViewModelTest {
         assertEquals(mockLat, slotList[0], 0.0)
         assertEquals(mockLong, slotList[1], 0.0)
         assertEquals(inputCity.lowercase(), slotInputCity.captured)
-        assertEquals(inputUnit, slotUnit.captured)
+        assertEquals(inputUnit.unit, slotUnit.captured)
         assertEquals(
             LiveDataWrapper.ResponseStatus.SUCCESS,
             mViewModel.weatherInfoLiveData.value?.responseStatus
@@ -118,7 +118,8 @@ class CurrentWeatherViewModelTest {
                         )
                     )
                 ),
-                cityName = slotCityName.captured
+                cityName = slotCityName.captured,
+                unit = inputUnit
             ),
             mViewModel.weatherInfoLiveData.value?.response
         )
@@ -127,7 +128,7 @@ class CurrentWeatherViewModelTest {
     @Test
     fun `Get weather info - Should fail because of get geolocation returns error`() {
         val inputCity = "Bangkok"
-        val inputUnit = "metric"
+        val inputUnit = TemperatureUnit.Celsius
         val errMsg = "Invalid input"
         coEvery { mUseCase.getGeolocation(any()) } coAnswers {
             Result.error(errMsg)
@@ -147,7 +148,7 @@ class CurrentWeatherViewModelTest {
     @Test
     fun `Get weather info - Should fail because of get weather returns error`() {
         val inputCity = "Bangkok"
-        val inputUnit = "mock metric"
+        val inputUnit = TemperatureUnit.Celsius
         val errMsg = "Invalid input"
         coEvery { mUseCase.getGeolocation(any()) } coAnswers {
             Result.success(
@@ -174,7 +175,7 @@ class CurrentWeatherViewModelTest {
     @Test
     fun `Get weather info - Should fail because of get geolocation throws exception`() {
         val inputCity = "Bangkok"
-        val inputUnit = "metric"
+        val inputUnit = TemperatureUnit.Celsius
         val errMsg = "No Data"
         coEvery { mUseCase.getGeolocation(any()) } throws NullPointerException(errMsg)
 
@@ -192,7 +193,7 @@ class CurrentWeatherViewModelTest {
     @Test
     fun `Get weather info - Should fail because blank city name`() {
         val inputCity = ""
-        val inputUnit = "metric"
+        val inputUnit = TemperatureUnit.Celsius
         val errMsg = "Please specify city name!!!"
 
         every {

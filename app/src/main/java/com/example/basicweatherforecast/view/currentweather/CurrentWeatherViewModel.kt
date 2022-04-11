@@ -5,6 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.example.basicweatherforecast.R
 import com.example.basicweatherforecast.data.LiveDataWrapper
+import com.example.basicweatherforecast.data.model.TemperatureUnit
 import com.example.basicweatherforecast.data.model.WeatherInfo
 import kotlinx.coroutines.*
 
@@ -19,7 +20,7 @@ class CurrentWeatherViewModel(
     private val job = SupervisorJob()
     private val mioScope = CoroutineScope(job + ioDispatcher)
 
-    fun getWeatherInfo(cityName: String, inputUnit: String) {
+    fun getWeatherInfo(cityName: String, unit: TemperatureUnit) {
 
         if (cityName.isBlank()) {
             weatherInfoLiveData.value =
@@ -36,10 +37,11 @@ class CurrentWeatherViewModel(
                     && geolocation.data.isNotEmpty()
                 ) {
                     val result = useCase.getWeatherInfo(
-                        geolocation.data[0].lat, geolocation.data[0].lon, inputUnit
+                        geolocation.data[0].lat, geolocation.data[0].lon, unit.unit
                     )
                     if (result.isSuccess && result.data != null) {
                         result.data.cityName = geolocation.data[0].name
+                        result.data.unit = unit
                         weatherInfoLiveData.postValue(LiveDataWrapper.success(result.data))
                     } else {
                         weatherInfoLiveData.postValue(

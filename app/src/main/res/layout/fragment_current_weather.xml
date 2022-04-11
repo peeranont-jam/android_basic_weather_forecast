@@ -40,7 +40,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:alpha="0.9"
-        android:text="@string/tv_unit_celsius"
+        android:text="@string/text_symbol_celsius"
         android:textSize="48sp"
         app:layout_constraintBottom_toBottomOf="@+id/tv_temp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -83,9 +83,33 @@
         android:maxLines="1"
         android:minHeight="48dp"
         android:textColorHint="#757575"
-        app:layout_constraintBottom_toTopOf="@+id/btn_search"
+        app:layout_constraintBottom_toTopOf="@+id/radio_group_temp_unit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <RadioGroup
+        android:id="@+id/radio_group_temp_unit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/btn_search">
+
+        <RadioButton
+            android:id="@+id/radio_celsius"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="@string/text_celsius" />
+
+        <RadioButton
+            android:id="@+id/radio_fahrenheit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="@string/text_fahrenheit" />
+    </RadioGroup>
 
     <Button
         android:id="@+id/btn_search"

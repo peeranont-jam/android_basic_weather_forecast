@@ -5,7 +5,8 @@ data class WeatherInfo(
     var long: Double,
     var current: Current,
     var hourly: List<Hourly>,
-    var cityName: String? = null
+    var cityName: String? = null,
+    var unit: TemperatureUnit? = null
 )
 
 data class Current(

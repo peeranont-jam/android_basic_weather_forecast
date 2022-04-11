@@ -6,8 +6,10 @@
     <string name="text_temp">%1$.1f</string>
     <string name="text_humidity">Humidity: %1$.1f %%</string>
     <string name="et_hint">Search city name here…</string>
-    <string name="tv_unit_celsius">℃</string>
-    <string name="tv_unit_fahrenheit">℉</string>
+    <string name="text_symbol_celsius">℃</string>
+    <string name="text_symbol_fahrenheit">℉</string>
+    <string name="text_celsius">Celsius</string>
+    <string name="text_fahrenheit">Fahrenheit</string>
 
     <string name="tv_err_msg_blank_input">Please specify city name!!!</string>
 </resources>
