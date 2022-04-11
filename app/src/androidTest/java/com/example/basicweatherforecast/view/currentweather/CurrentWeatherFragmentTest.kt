@@ -30,9 +30,12 @@ class CurrentWeatherFragmentTest {
 
     @Test
     fun show_blank_text() {
-        onView(withId(R.id.tv_info)).check(matches(not(isDisplayed())))
         onView(withId(R.id.tv_city_name)).check(matches(not(isDisplayed())))
-        onView(withId(R.id.et_city_name)).perform(clearText(), typeText("bangkok"))
+        onView(withId(R.id.tv_temp)).check(matches(not(isDisplayed())))
+        onView(withId(R.id.tv_temp_unit)).check(matches(not(isDisplayed())))
+        onView(withId(R.id.tv_humidity)).check(matches(not(isDisplayed())))
+
+        onView(withId(R.id.et_city_name)).perform(clearText(), typeText("san fran"))
 
         Espresso.closeSoftKeyboard()
         onView(withId(R.id.btn_search))
@@ -41,7 +44,9 @@ class CurrentWeatherFragmentTest {
 
         SystemClock.sleep(1000)
 
-        onView(withId(R.id.tv_info)).check(matches(isDisplayed()))
         onView(withId(R.id.tv_city_name)).check(matches(isDisplayed()))
+        onView(withId(R.id.tv_temp)).check(matches(isDisplayed()))
+        onView(withId(R.id.tv_temp_unit)).check(matches(isDisplayed()))
+        onView(withId(R.id.tv_humidity)).check(matches(isDisplayed()))
     }
 }

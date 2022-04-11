@@ -8,40 +8,81 @@
 
     <TextView
         android:id="@+id/tv_city_name"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="@string/text_city_name"
-        android:textSize="40sp"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textSize="24sp"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintBottom_toTopOf="@+id/tv_temp"
+        app:layout_constraintEnd_toEndOf="@+id/tv_temp_unit"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/tv_temp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
 
     <TextView
-        android:id="@+id/tv_info"
-        android:layout_width="0dp"
+        android:id="@+id/tv_temp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/text_lat_long"
-        android:textSize="40sp"
-        android:visibility="gone"
+        android:text="@string/text_temp"
+        android:textSize="100sp"
+        app:layout_constraintBottom_toTopOf="@+id/tv_humidity"
+        app:layout_constraintEnd_toStartOf="@+id/tv_temp_unit"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_city_name" />
+
+    <TextView
+        android:id="@+id/tv_temp_unit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:alpha="0.9"
+        android:text="@string/tv_unit_celsius"
+        android:textSize="48sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_temp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/tv_temp"
+        app:layout_constraintTop_toTopOf="@+id/tv_temp"
+        app:layout_constraintVertical_bias="0.8" />
+
+    <TextView
+        android:id="@+id/tv_humidity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/text_humidity"
+        android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/et_city_name"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_city_name" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="@+id/tv_temp"
+        app:layout_constraintTop_toBottomOf="@+id/tv_temp" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/group_weather_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:constraint_referenced_ids="tv_city_name, tv_temp, tv_temp_unit, tv_humidity" />
 
     <EditText
         android:id="@+id/et_city_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
         android:layout_marginBottom="16dp"
         android:hint="@string/et_hint"
         android:importantForAutofill="no"
         android:inputType="text"
         android:maxLength="60"
+        android:maxLines="1"
+        android:minHeight="48dp"
+        android:textColorHint="#757575"
         app:layout_constraintBottom_toTopOf="@+id/btn_search"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -50,7 +91,7 @@
         android:id="@+id/btn_search"
         android:layout_width="120dp"
         android:layout_height="60dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="32dp"
         android:text="@string/btn_search"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

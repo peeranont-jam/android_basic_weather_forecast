@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.basicweatherforecast.R
 import com.example.basicweatherforecast.data.LiveDataWrapper
@@ -12,33 +13,12 @@ import kotlinx.coroutines.Dispatchers
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [CurrentWeatherFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class CurrentWeatherFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
     private val currentWeatherViewModel: CurrentWeatherViewModel by viewModel {
         parametersOf(
             Dispatchers.IO
         )
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
     }
 
     override fun onCreateView(
@@ -57,47 +37,24 @@ class CurrentWeatherFragment : Fragment() {
                     // Loading data
                 }
                 LiveDataWrapper.ResponseStatus.ERROR -> {
-                    // Error
+                    Toast.makeText(context, result.errorMessage, Toast.LENGTH_LONG).show()
                 }
                 LiveDataWrapper.ResponseStatus.SUCCESS -> {
                     result.response?.let {
-                        if (it.isNotEmpty()) {
-                            tv_info.text =
-                                resources.getString(R.string.text_lat_long, it[0].lat, it[0].lon)
-                            tv_city_name.text = it[0].name
-                            tv_city_name.visibility = View.VISIBLE
-                            tv_info.visibility = View.VISIBLE
-                        } else {
-                            tv_city_name.visibility = View.GONE
-                            tv_info.visibility = View.GONE
-                        }
+                        group_weather_info.visibility = View.VISIBLE
+                        tv_city_name.text = it.cityName ?: ""
+                        tv_temp.text = resources.getString(R.string.text_temp, it.current.temp)
+                        tv_humidity.text =
+                            resources.getString(R.string.text_humidity, it.current.humidity)
+                    } ?: run {
+                        group_weather_info.visibility = View.GONE
                     }
                 }
             }
         }
 
         btn_search.setOnClickListener {
-            currentWeatherViewModel.getGeolocation(et_city_name.text.toString())
+            currentWeatherViewModel.getWeatherInfo(et_city_name.text.toString(), "metric")
         }
-    }
-
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment CurrentWeatherFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            CurrentWeatherFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
     }
 }

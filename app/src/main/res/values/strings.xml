@@ -3,6 +3,11 @@
 
     <string name="btn_search">Search</string>
     <string name="text_city_name">City Name</string>
-    <string name="text_lat_long">Lat: %1$f, Long: %2$f</string>
-    <string name="et_hint">Fill city name here</string>
+    <string name="text_temp">%1$.1f</string>
+    <string name="text_humidity">Humidity: %1$.1f %%</string>
+    <string name="et_hint">Search city name here…</string>
+    <string name="tv_unit_celsius">℃</string>
+    <string name="tv_unit_fahrenheit">℉</string>
+
+    <string name="tv_err_msg_blank_input">Please specify city name!!!</string>
 </resources>
