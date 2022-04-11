@@ -12,7 +12,7 @@ import com.example.basicweatherforecast.R
 import com.example.basicweatherforecast.data.LiveDataWrapper
 import com.example.basicweatherforecast.data.model.TemperatureUnit
 import com.example.basicweatherforecast.data.model.WeatherInfo
-import kotlinx.android.synthetic.main.fragment_current_weather.*
+import com.example.basicweatherforecast.databinding.FragmentCurrentWeatherBinding
 import kotlinx.coroutines.Dispatchers
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
@@ -23,11 +23,20 @@ class CurrentWeatherFragment : Fragment() {
         parametersOf(Dispatchers.IO)
     }
 
+    private var _binding: FragmentCurrentWeatherBinding? = null
+    private val binding get() = _binding!!
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_current_weather, container, false)
+    ): View {
+        _binding = FragmentCurrentWeatherBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -42,14 +51,14 @@ class CurrentWeatherFragment : Fragment() {
     }
 
     private fun setupViews() {
-        btn_search.setOnClickListener {
+        binding.btnSearch.setOnClickListener {
             currentWeatherViewModel.getWeatherInfo(
-                et_city_name.text.toString(),
+                binding.etCityName.text.toString(),
                 getSelectedTempUnit()
             )
         }
 
-        tv_navigate_to_whole_day_forecast.setOnClickListener {
+        binding.tvNavigateToWholeDayForecast.setOnClickListener {
             findNavController().navigate(
                 CurrentWeatherFragmentDirections.actionCurrentWeatherFragmentToWholeDayForecastFragment(
                     currentWeatherViewModel.getHourlyInfo().toTypedArray(),
@@ -60,7 +69,7 @@ class CurrentWeatherFragment : Fragment() {
     }
 
     private fun getSelectedTempUnit(): TemperatureUnit {
-        return when (radio_group_temp_unit.checkedRadioButtonId) {
+        return when (binding.radioGroupTempUnit.checkedRadioButtonId) {
             R.id.radio_celsius -> TemperatureUnit.Celsius
             R.id.radio_fahrenheit -> TemperatureUnit.Fahrenheit
             else -> TemperatureUnit.Celsius
@@ -72,7 +81,7 @@ class CurrentWeatherFragment : Fragment() {
             TemperatureUnit.Celsius -> getString(R.string.text_symbol_celsius)
             TemperatureUnit.Fahrenheit -> getString(R.string.text_symbol_fahrenheit)
         }
-        tv_temp_unit.text = textUnit
+        binding.tvTempUnit.text = textUnit
     }
 
 
@@ -86,14 +95,14 @@ class CurrentWeatherFragment : Fragment() {
             }
             LiveDataWrapper.ResponseStatus.SUCCESS -> {
                 result.response?.let {
-                    group_weather_info.visibility = View.VISIBLE
-                    tv_city_name.text = it.cityName ?: ""
-                    tv_temp.text = resources.getString(R.string.text_temp, it.current.temp)
-                    tv_humidity.text =
+                    binding.groupWeatherInfo.visibility = View.VISIBLE
+                    binding.tvCityName.text = it.cityName ?: ""
+                    binding.tvTemp.text = resources.getString(R.string.text_temp, it.current.temp)
+                    binding.tvHumidity.text =
                         resources.getString(R.string.text_humidity, it.current.humidity)
                     it.unit?.let { unit -> setTempUnit(unit) }
                 } ?: run {
-                    group_weather_info.visibility = View.GONE
+                    binding.groupWeatherInfo.visibility = View.GONE
                 }
             }
         }

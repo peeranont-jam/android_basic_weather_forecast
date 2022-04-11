@@ -7,20 +7,23 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.basicweatherforecast.R
+import com.example.basicweatherforecast.databinding.FragmentWholeDayForecastBinding
 import com.example.basicweatherforecast.view.wholedayforecast.adapter.WholeDayForecastAdapter
-import kotlinx.android.synthetic.main.fragment_whole_day_forecast.*
 
 
 class WholeDayForecastFragment : Fragment() {
 
     private val args: WholeDayForecastFragmentArgs by navArgs()
 
+    private var _binding: FragmentWholeDayForecastBinding? = null
+    private val binding get() = _binding!!
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_whole_day_forecast, container, false)
+    ): View {
+        _binding = FragmentWholeDayForecastBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -28,10 +31,15 @@ class WholeDayForecastFragment : Fragment() {
         setupViews()
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
     private fun setupViews() {
         val mAdapter =
             WholeDayForecastAdapter(args.hourlyInfo.take(24).toTypedArray(), args.temperatureUnit)
-        rv_forecast.layoutManager = LinearLayoutManager(context)
-        rv_forecast.adapter = mAdapter
+        binding.rvForecast.layoutManager = LinearLayoutManager(context)
+        binding.rvForecast.adapter = mAdapter
     }
 }

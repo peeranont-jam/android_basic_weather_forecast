@@ -1,7 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
-    id 'kotlin-android-extensions'
+    id 'kotlin-parcelize'
     id 'androidx.navigation.safeargs.kotlin'
 }
 
@@ -35,6 +35,9 @@ android {
     testOptions {
         animationsDisabled = true
     }
+    buildFeatures {
+        viewBinding true
+    }
 }
 
 dependencies {
@@ -62,7 +65,7 @@ dependencies {
     implementation "androidx.navigation:navigation-fragment-ktx:${rootProject.ext.nav_version}"
     implementation "androidx.navigation:navigation-ui-ktx:${rootProject.ext.nav_version}"
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    debugImplementation  'androidx.fragment:fragment-testing:1.4.1'
+    debugImplementation 'androidx.fragment:fragment-testing:1.4.1'
 
     // Glide
     implementation 'com.github.bumptech.glide:glide:4.13.0'
