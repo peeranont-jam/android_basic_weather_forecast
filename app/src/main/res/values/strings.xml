@@ -15,6 +15,6 @@
 
     <string name="text_err_msg_blank_input">Please specify city name!!!</string>
     <string name="text_navigate_to_whole_day_forecast"><u>View Whole-Day Forecast</u></string>
-    <string name="text_sample_date">2022–01–01 12:00</string>
+    <string name="text_sample_date">13 Apr 12:00</string>
     <string name="text_img_weather_content_description">Weather Image</string>
 </resources>

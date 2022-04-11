@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.basicweatherforecast.R
 import com.example.basicweatherforecast.data.model.Hourly
 import com.example.basicweatherforecast.data.model.TemperatureUnit
+import com.example.basicweatherforecast.utils.DataFormatter.toFormatDate
 
 class WholeDayForecastAdapter(
     private val items: Array<Hourly>,
@@ -42,6 +43,7 @@ class WholeDayForecastAdapter(
             holder.itemView.context.getString(R.string.text_temp_with_unit, data.temp, unitSymbol)
         holder.textHumidity.text =
             holder.itemView.context.getString(R.string.text_humidity, data.humidity)
+        holder.textDatetime.text = data.dateTime.toFormatDate()
     }
 
     override fun getItemCount() = items.size

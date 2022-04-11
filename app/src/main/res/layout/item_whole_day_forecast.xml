@@ -10,37 +10,38 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_begin="16dp" />
+        app:layout_constraintGuide_begin="40dp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guide_end"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_end="16dp" />
+        app:layout_constraintGuide_end="40dp" />
 
-
-    <ImageView
-        android:id="@+id/img_weather"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:contentDescription="@string/text_img_weather_content_description"
-        android:src="@drawable/ic_launcher_foreground"
+    <TextView
+        android:id="@+id/tv_date_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/text_sample_date"
+        app:layout_constraintBottom_toBottomOf="@+id/img_weather"
         app:layout_constraintEnd_toStartOf="@+id/tv_temp"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
         app:layout_constraintStart_toStartOf="@id/guide_start"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/img_weather" />
 
     <TextView
         android:id="@+id/tv_temp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/text_temp"
+        android:textSize="16sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/img_weather"
         app:layout_constraintEnd_toStartOf="@+id/tv_humidity"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/img_weather"
+        app:layout_constraintStart_toEndOf="@+id/tv_date_time"
         app:layout_constraintTop_toTopOf="@+id/img_weather" />
 
     <TextView
@@ -48,30 +49,31 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/text_humidity"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_temp"
-        app:layout_constraintEnd_toStartOf="@+id/tv_date_time"
+        app:layout_constraintBottom_toBottomOf="@+id/img_weather"
+        app:layout_constraintEnd_toStartOf="@+id/img_weather"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/tv_temp"
-        app:layout_constraintTop_toTopOf="@+id/tv_temp" />
+        app:layout_constraintTop_toTopOf="@+id/img_weather" />
 
-    <TextView
-        android:id="@+id/tv_date_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/text_sample_date"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_humidity"
+    <ImageView
+        android:id="@+id/img_weather"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:contentDescription="@string/text_img_weather_content_description"
+        android:src="@drawable/ic_launcher_foreground"
         app:layout_constraintEnd_toEndOf="@id/guide_end"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/tv_humidity"
-        app:layout_constraintTop_toTopOf="@+id/tv_humidity" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.divider.MaterialDivider
         android:id="@+id/materialDivider"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/img_weather" />
 
