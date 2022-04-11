@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/currentWeatherFragment"
         android:name="com.example.basicweatherforecast.view.currentweather.CurrentWeatherFragment"
-        android:label="fragment_current_weather"
+        android:label="Current Weather"
         tools:layout="@layout/fragment_current_weather">
         <action
             android:id="@+id/action_currentWeatherFragment_to_wholeDayForecastFragment"
@@ -22,7 +22,7 @@
     <fragment
         android:id="@+id/wholeDayForecastFragment"
         android:name="com.example.basicweatherforecast.view.wholedayforecast.WholeDayForecastFragment"
-        android:label="fragment_whole_day_forecast"
+        android:label="Whole-day Forecast"
         tools:layout="@layout/fragment_whole_day_forecast">
 
         <argument
