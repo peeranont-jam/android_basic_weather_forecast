@@ -112,7 +112,7 @@
                 android:id="@+id/group_weather_info"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:visibility="visible"
+                android:visibility="gone"
                 app:constraint_referenced_ids="tv_city_name, tv_temp, tv_temp_unit, tv_humidity, tv_navigate_to_whole_day_forecast" />
 
             <EditText
