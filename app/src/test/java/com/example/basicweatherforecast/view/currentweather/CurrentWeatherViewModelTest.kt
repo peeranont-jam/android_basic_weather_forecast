@@ -44,7 +44,17 @@ class CurrentWeatherViewModelTest {
         val inputCity = "Bangko"
         val mockLat = 13.7544238
         val mockLong = 100.4930399
-        val inputUnit = TemperatureUnit.Celsius
+        val inputUnit = TemperatureUnit.Fahrenheit
+
+        val hourlyResponse = listOf(
+            Hourly(
+                1649703600, 28.5, 50.0,
+                listOf(
+                    Weather(500, "Rain", "light rain", "10n")
+                )
+            )
+        )
+
         val slotInputCity = slot<String>()
         val slotUnit = slot<String>()
         val slotCityName = slot<String>()
@@ -72,19 +82,7 @@ class CurrentWeatherViewModelTest {
                     lat = mockLat,
                     long = mockLong,
                     current = Current(32.76, 56.0),
-                    hourly = listOf(
-                        Hourly(
-                            1649703600, 28.5, 50.0,
-                            listOf(
-                                Weather(
-                                    500,
-                                    "Rain",
-                                    "light rain",
-                                    "10n"
-                                )
-                            )
-                        )
-                    )
+                    hourly = hourlyResponse
                 )
             )
         }
@@ -105,24 +103,14 @@ class CurrentWeatherViewModelTest {
                 lat = mockLat,
                 long = mockLong,
                 current = Current(32.76, 56.0),
-                hourly = listOf(
-                    Hourly(
-                        1649703600, 28.5, 50.0,
-                        listOf(
-                            Weather(
-                                500,
-                                "Rain",
-                                "light rain",
-                                "10n"
-                            )
-                        )
-                    )
-                ),
+                hourly = hourlyResponse,
                 cityName = slotCityName.captured,
                 unit = inputUnit
             ),
             mViewModel.weatherInfoLiveData.value?.response
         )
+        assertEquals(inputUnit, mViewModel.getTempUnit())
+        assertEquals(hourlyResponse, mViewModel.getHourlyInfo())
     }
 
     @Test
