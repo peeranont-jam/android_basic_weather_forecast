@@ -12,14 +12,17 @@ data class GeolocationResponse(
     @SerializedName("lon")
     var lon: Double,
     @SerializedName("country")
-    var country: String
+    var country: String? = null,
+    @SerializedName("state")
+    var state: String? = null
 ) {
     fun mapToGeolocation(): Geolocation {
         return Geolocation(
             name = this.name,
             lat = this.lat,
             lon = this.lon,
-            country = this.country
+            country = this.country,
+            state = this.state
         )
     }
 }

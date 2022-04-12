@@ -46,7 +46,8 @@ class CurrentWeatherViewModelTest {
         val mockLong = 100.4930399
         val inputUnit = TemperatureUnit.Fahrenheit
 
-        val hourlyResponse = listOf(
+        val geolocationResp = listOf(Geolocation("Bangkok", mockLat, mockLong, "TH"))
+        val hourlyResp = listOf(
             Hourly(
                 1649703600, 28.5, 50.0,
                 listOf(
@@ -57,16 +58,12 @@ class CurrentWeatherViewModelTest {
 
         val slotInputCity = slot<String>()
         val slotUnit = slot<String>()
-        val slotCityName = slot<String>()
+        val slotGeolocation = slot<Geolocation>()
         val slotList = mutableListOf<Double>()
 
         coEvery { mUseCase.getGeolocation(capture(slotInputCity)) } coAnswers {
-            Result.success(
-                listOf(
-                    Geolocation("Bangkok", mockLat, mockLong, "TH")
-                )
-            ).also {
-                slotCityName.captured = it.data!![0].name
+            Result.success(geolocationResp).also {
+                slotGeolocation.captured = it.data!![0]
             }
         }
 
@@ -82,7 +79,7 @@ class CurrentWeatherViewModelTest {
                     lat = mockLat,
                     long = mockLong,
                     current = Current(32.76, 56.0),
-                    hourly = hourlyResponse
+                    hourly = hourlyResp
                 )
             )
         }
@@ -103,14 +100,14 @@ class CurrentWeatherViewModelTest {
                 lat = mockLat,
                 long = mockLong,
                 current = Current(32.76, 56.0),
-                hourly = hourlyResponse,
-                cityName = slotCityName.captured,
+                hourly = hourlyResp,
+                geolocation = slotGeolocation.captured,
                 unit = inputUnit
             ),
             mViewModel.weatherInfoLiveData.value?.response
         )
         assertEquals(inputUnit, mViewModel.getTempUnit())
-        assertEquals(hourlyResponse, mViewModel.getHourlyInfo())
+        assertEquals(hourlyResp, mViewModel.getHourlyInfo())
     }
 
     @Test

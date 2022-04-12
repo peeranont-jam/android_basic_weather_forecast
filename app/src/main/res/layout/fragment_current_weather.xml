@@ -19,16 +19,30 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/tv_city_name"
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guide_start"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.05" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guide_end"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.95" />
+
+            <TextView
+                android:id="@+id/tv_city_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="24dp"
                 android:text="@string/text_city_name"
-                android:textSize="24sp"
+                android:textSize="16sp"
                 app:layout_constrainedWidth="true"
                 app:layout_constraintBottom_toTopOf="@+id/tv_temp"
-                app:layout_constraintEnd_toEndOf="@+id/tv_temp_unit"
+                app:layout_constraintEnd_toStartOf="@+id/guide_end"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/tv_temp"
                 app:layout_constraintTop_toTopOf="parent"
@@ -64,12 +78,13 @@
 
             <TextView
                 android:id="@+id/tv_humidity"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="24dp"
                 android:text="@string/text_humidity"
                 android:textSize="24sp"
                 app:layout_constraintBottom_toTopOf="@+id/tv_navigate_to_whole_day_forecast"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/guide_end"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintHorizontal_chainStyle="packed"
                 app:layout_constraintStart_toStartOf="@+id/tv_temp"
@@ -85,8 +100,9 @@
                 android:text="@string/text_navigate_to_whole_day_forecast"
                 android:textColor="@android:color/holo_blue_dark"
                 android:textSize="16sp"
+                app:layout_constrainedWidth="true"
                 app:layout_constraintBottom_toTopOf="@+id/et_city_name"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/guide_end"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintHorizontal_chainStyle="packed"
                 app:layout_constraintStart_toStartOf="@+id/tv_temp"
@@ -96,15 +112,13 @@
                 android:id="@+id/group_weather_info"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
+                android:visibility="visible"
                 app:constraint_referenced_ids="tv_city_name, tv_temp, tv_temp_unit, tv_humidity, tv_navigate_to_whole_day_forecast" />
 
             <EditText
                 android:id="@+id/et_city_name"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginEnd="32dp"
                 android:layout_marginBottom="16dp"
                 android:hint="@string/et_hint"
                 android:importantForAutofill="no"
@@ -114,17 +128,19 @@
                 android:minHeight="48dp"
                 android:textColorHint="#757575"
                 app:layout_constraintBottom_toTopOf="@+id/radio_group_temp_unit"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintEnd_toStartOf="@+id/guide_end"
+                app:layout_constraintStart_toStartOf="@+id/guide_start" />
 
             <RadioGroup
                 android:id="@+id/radio_group_temp_unit"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
                 android:gravity="center"
                 android:orientation="horizontal"
-                app:layout_constraintBottom_toTopOf="@+id/btn_search">
+                app:layout_constraintBottom_toTopOf="@+id/btn_search"
+                app:layout_constraintEnd_toStartOf="@+id/guide_end"
+                app:layout_constraintStart_toStartOf="@+id/guide_start">
 
                 <RadioButton
                     android:id="@+id/radio_celsius"

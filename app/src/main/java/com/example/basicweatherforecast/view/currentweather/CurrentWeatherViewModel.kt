@@ -52,7 +52,7 @@ class CurrentWeatherViewModel(
                         geolocation.data[0].lat, geolocation.data[0].lon, unit.unit
                     )
                     if (result.isSuccess && result.data != null) {
-                        result.data.cityName = geolocation.data[0].name
+                        result.data.geolocation = geolocation.data[0]
                         result.data.unit = unit
                         weatherInfoLiveData.postValue(LiveDataWrapper.success(result.data))
 

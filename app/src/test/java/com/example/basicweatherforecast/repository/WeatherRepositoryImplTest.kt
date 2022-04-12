@@ -159,7 +159,7 @@ class WeatherRepositoryImplTest {
                         )
                     )
                 ),
-                cityName = null
+                geolocation = null
             ), result.data
         )
     }

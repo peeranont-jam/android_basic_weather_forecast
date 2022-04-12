@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.example.basicweatherforecast.R
 import com.example.basicweatherforecast.data.LiveDataWrapper
+import com.example.basicweatherforecast.data.model.Geolocation
 import com.example.basicweatherforecast.data.model.TemperatureUnit
 import com.example.basicweatherforecast.data.model.WeatherInfo
 import com.example.basicweatherforecast.databinding.FragmentCurrentWeatherBinding
@@ -98,7 +99,8 @@ class CurrentWeatherFragment : Fragment() {
             LiveDataWrapper.ResponseStatus.SUCCESS -> {
                 result.response?.let {
                     binding.groupWeatherInfo.visibility = View.VISIBLE
-                    binding.tvCityName.text = it.cityName ?: ""
+                    binding.tvCityName.text =
+                        it.geolocation?.let { it1 -> getCityName(it1) } ?: kotlin.run { "" }
                     binding.tvTemp.text = resources.getString(R.string.text_temp, it.current.temp)
                     binding.tvHumidity.text =
                         resources.getString(R.string.text_humidity, it.current.humidity)
@@ -108,5 +110,19 @@ class CurrentWeatherFragment : Fragment() {
                 }
             }
         }
+    }
+
+    private fun getCityName(geolocation: Geolocation): String {
+        var result = geolocation.name
+
+        if (!geolocation.state.isNullOrBlank()) {
+            result += ", ${geolocation.state}"
+        }
+
+        if (!geolocation.country.isNullOrBlank()) {
+            result += ", ${geolocation.country}"
+        }
+
+        return result
     }
 }

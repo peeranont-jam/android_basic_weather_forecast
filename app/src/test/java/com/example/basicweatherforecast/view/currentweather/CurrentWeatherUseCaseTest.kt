@@ -144,7 +144,7 @@ class CurrentWeatherUseCaseTest {
                         )
                     )
                 ),
-                cityName = null
+                geolocation = null
             ),
             result.data
         )
