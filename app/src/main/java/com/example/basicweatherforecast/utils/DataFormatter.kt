@@ -6,7 +6,7 @@ import java.util.*
 object DataFormatter {
 
     fun Long.toFormatDate(): String = run {
-        val simpleDate = SimpleDateFormat("dd MMM hh:mm", Locale.US)
+        val simpleDate = SimpleDateFormat("dd MMM HH:mm", Locale.US)
         simpleDate.format(Date(this * 1000))
     }
 }
